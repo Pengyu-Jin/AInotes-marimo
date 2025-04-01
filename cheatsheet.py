@@ -41,6 +41,24 @@ def _():
 
 
 @app.cell
+def _(np):
+    # 旧版本命令
+    np.random.seed(200)
+    ran_num = np.random.random()
+    ran_li = np.random.random(3)
+    print(ran_num)
+    print(ran_li)
+
+    # 新版本命令
+    rng = np.random.default_rng(200)
+    ran_num1 = rng.random()
+    ran_li1 = rng.random(3)
+    print(ran_num1)
+    print(ran_li1)
+    return ran_li, ran_li1, ran_num, ran_num1, rng
+
+
+@app.cell
 def _():
     import marimo as mo
     return (mo,)
@@ -74,6 +92,33 @@ def _():
 @app.cell
 def _():
     return
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        """
+        ## Pytorch Cheatsheet
+
+        item() 取出单元素张量的元素值并返回该值
+        """
+    )
+    return
+
+
+@app.cell
+def _():
+    import torch
+
+    torch.manual_seed(200)
+    tx = torch.randn(3, 3)
+    print(tx)
+    ele, index = tx.max(), tx.argmax()
+    print(tx[0, 0])
+    print(ele, index)
+    print(ele.item())
+    print(index.item())
+    return ele, index, torch, tx
 
 
 if __name__ == "__main__":
